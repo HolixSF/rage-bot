@@ -48,8 +48,8 @@ app.post('/rb', function(req, res){
 })
 
 app.post('/events', function(req, res){
-  var challenge = req.body.challenge
-  res.send(challenge)
+  var test = req.body
+  console.log(test);
 })
 
 
