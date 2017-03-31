@@ -28,7 +28,7 @@ app.post('/rb', function(req, res){
 
   if (query) {
     if (typeof(quotes[query]) == "undefined") {
-      quote = "'I dont fuckin know dude. That quote doesn't exist for all I know."
+      quote = "'I dont fuckin know dude. That quote doesn't exist for all I know.'"
     } else {
       quote = quotes[query]
     }
