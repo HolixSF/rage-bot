@@ -18,17 +18,25 @@ app.post('/rb', function(req, res){
     return obj[keys[ keys.length * Math.random() << 0]];
   };
 
+  var query = req.body.text
+
   var quotes = {
-    "wol": "We are the Warriors of light such as if you where to go rogue you would still be a a sch.",
-    "stoping": "I like pulling and stoping and pulling and stoping and then getting that big burst of white light"
+    "wol": "'We are the Warriors of light such as if you where to go rogue you would still be a a sch.'",
+    "stoping": "'I like pulling and stoping and pulling and stoping and then getting that big burst of white light'"
   }
-  var quote = randomQuote(quotes)
+  var quote = ""
+
+  if (query) {
+    quote = quotes[quote]
+  } else {
+    quote = randomQuote(quotes)
+  }
 
   var body = {
     response_type: "in_channel",
     "attachments": [
       {
-        "text": quote + "\n" + "--Rancorage Cathal"
+        "text": quote + "\n" + " --Rancorage Cathal"
       }
     ]
   }
