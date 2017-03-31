@@ -27,7 +27,11 @@ app.post('/rb', function(req, res){
   var quote = ""
 
   if (query) {
-    quote = quotes[query]
+    if (typeof(quotes[query]) == "undefined") {
+      quote = "'I dont fuckin know dude. That quote doesn't exist for all I know."
+    } else {
+      quote = quotes[query]
+    }
   } else {
     quote = randomQuote(quotes)
   }
