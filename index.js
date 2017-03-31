@@ -47,6 +47,11 @@ app.post('/rb', function(req, res){
   res.send(body)
 })
 
+app.post('/events', function(req, res){
+  var challenge = req.body.challenge
+  res.send(challenge)
+})
+
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
