@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+require('dotenv').config();
 var url = require('url');
 var bodyParser = require('body-parser');
 var H = require('./helpers');
@@ -9,14 +10,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('port', (process.env.PORT || 9001));
 
-app.get('/heartbeat', function(req, res){
-  var query = "wol"
-  var quote = H.getQuote(query);
-  console.log(quote);
+app.get('/heartbeat', function(req, res) {
+  H.getChannels();
   res.send('Running!!');
 });
 
-app.post('/rb', function(req, res){
+app.post('/rb', function(req, res) {
   var query = req.body.text;
   var quote = H.getRageQuote(query);
   var body = {
@@ -26,14 +25,20 @@ app.post('/rb', function(req, res){
   res.send(body)
 })
 
-app.post('/events', function(req, res){
-  var text = req.body.event.text
-  var cleaned_text = S(text).collapseWhitespace().s
-  // does cleaned_text.include(names of peeeps here)
-  console.log(test);
+app.post('/events', function(req, res) {
+  var text = req.body.event.text || false
+  var channel = req.body.event.channel || "No channel found"
+  if (text) {
+    H.getPersonalQuote(text, channel);
+    res.status(200).send('OK');
+  } else {
+    res.end()
+  }
+  // var challenge = req.body.challenge
+  // res.send(challenge)
 })
 
 
-app.listen(app.get('port'), function() {
+var server = app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
